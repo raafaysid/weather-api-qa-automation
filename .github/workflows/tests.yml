@@ -27,7 +27,6 @@ jobs:
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         run: |
-          # add extra reports on top of what's in pytest.ini
           pytest --cov-report=xml --cov-report=html
 
       - name: Upload coverage HTML (artifact)
