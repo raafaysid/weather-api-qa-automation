@@ -34,7 +34,7 @@ jobs:
         run: |
           # pytest.ini already has the coverage rules (min 85%)
           # this adds XML + HTML output for reports
-          pytest --cov-report=term-missing --cov-report=xml --cov-report=html
+          pytest --cov=utils --cov=tests --cov-report=term-missing --cov-report=xml --cov-report=html
 
       - name: Upload HTML coverage report
         uses: actions/upload-artifact@v4
