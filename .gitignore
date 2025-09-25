@@ -1,4 +1,18 @@
-venv/
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# venv & local tooling
+venv/
+.venv/
+
+# pytest/coverage
 .pytest_cache/
+.coverage
+htmlcov/
+
+# OS/editor
 .DS_Store
+.vscode/
