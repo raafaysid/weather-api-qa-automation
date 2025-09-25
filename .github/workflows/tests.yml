@@ -26,4 +26,4 @@ jobs:
       - name: Run pytest with coverage
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-        run: pytest
+        run: pytest -v
