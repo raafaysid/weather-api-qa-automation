@@ -1,3 +1,4 @@
+# .github/workflows/tests.yml
 name: Run API Tests
 
 on:
@@ -9,6 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,19 +23,23 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest-cov
-      - name: Run pytest with coverage (HTML + XML)
+          # install your project deps if the file exists
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # make sure pytest + coverage tools are always available
+          pip install pytest pytest-cov
+
+      - name: Run tests with coverage
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-        run: pytest --cov=utils --cov-report=term-missing --cov-report=xml --cov-report=html
-        
-      - name: Upload coverage HTML (artifact)
+        run: |
+          # pytest.ini already has the coverage rules (min 85%)
+          # this adds XML + HTML output for reports
+          pytest --cov-report=term-missing --cov-report=xml --cov-report=html
+
+      - name: Upload HTML coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-html
           path: htmlcov/
           if-no-files-found: error
           retention-days: 7
-
-    
